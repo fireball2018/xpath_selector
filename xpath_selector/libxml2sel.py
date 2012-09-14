@@ -23,6 +23,9 @@ class XPathSelector(object_ref):
         if parent is not None:
             self.doc = parent.doc
             self.xmlNode = node
+        elif response:
+            self.doc = Libxml2Document(response, factory=self._get_libxml2_doc)
+            self.xmlNode = self.doc.xmlDoc
         elif text:
             response = TextResponse(url='about:blank', \
                 body=unicode_to_str(text, 'utf-8'), encoding='utf-8')
